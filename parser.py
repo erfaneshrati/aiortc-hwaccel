@@ -4,6 +4,7 @@ import subprocess
 import av
 import av.datasets
 
+import time
 
 # We want an H.264 stream in the Annex B byte-stream format.
 # We haven't exposed bitstream filters yet, so we're gonna use the `ffmpeg` CLI.
@@ -23,6 +24,7 @@ fh = open(h264_path, 'rb')
 print ("running h264 decoder on cpu..")
 codec = av.CodecContext.create('h264', 'r')
 
+t1 = time.time()
 while True:
 
     chunk = fh.read(1 << 16)
@@ -42,12 +44,12 @@ while True:
     # the parser.
     if not chunk:
         break
-
-print ("h264 decoder on cpu success!!")
+print ("h264 decoder on cpu success in %s!!" %(time.time() - t1))
+fh = open(h264_path, 'rb')
 print ("running h264 decoder on gpu..")
 
 codec = av.CodecContext.create('h264_cuvid', 'r')
-
+t1 = time.time()
 while True:
 
     chunk = fh.read(1 << 16)
@@ -68,4 +70,4 @@ while True:
     if not chunk:
         break
 
-print ("h264 decoder on gpu success!!")
+print ("h264 decoder on gpu success in %s!!"%(time.time() - t1))
