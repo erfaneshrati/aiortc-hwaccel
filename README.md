@@ -14,7 +14,9 @@ make
 
 In your aiortc project you need to replace the `h264` with `h264_cuvid` when specifying the codec: https://github.com/aiortc/aiortc/blob/01ff209cc38e887edeb05cba1845cf458b31a0ac/src/aiortc/codecs/h264.py#L106
 
-In the sample h264 `parser.py` code, it runs h264 decoder on a sample ffmpeg video on both cpu (`h264`) and gpu(`h264_cuvid`).
+In the sample h264 code `parser.py`, it runs h264 decoder on a sample ffmpeg video on both cpu (`h264`) and gpu(`h264_cuvid`).
+
+*** This forked repo contains the necessary changes for running both encoder and decoder on gpu: https://github.com/erfaneshrati/aiortc
 
 ## Troubleshoot
 If you faced `configure: error: libx264 not found` then the following solves the issue:
